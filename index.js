@@ -35,7 +35,17 @@ var fix = function($in) {
             return el.data;
           }).join(' ');
         }
-        console.error(text);
+
+        // show text with previous/following text
+        var context = '';
+        if ((this.prev) && (this.prev.data)) {
+          context += this.prev.data;
+        }
+        context += '[' + text + ']';
+        if ((this.next) && (this.next.data)) {
+          context += this.next.data;
+        }
+        console.error(context);
 
         // allow user to override text
         var inputText = readlineSync.question('');
