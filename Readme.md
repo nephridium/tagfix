@@ -1,12 +1,13 @@
-Will take input from STDIN, replace invalid HTML tags with text nodes
-and send result to STDOUT.
+Node app that takes input from STDIN, replaces invalid HTML tags with
+text nodes and sends result to STDOUT.
 
 The text used to replace the tags is generated from the tag names themselves
-and any attributes it might have, e. g.
+and any attributes they might have, e. g.
 `<div><this should='' be=''></this> text.</div>` ->
 `<div>this should be text.</div>`
 
-The user is allowed to override the replacement text.
+The user is allowed to override the replacement text before the
+transformed string is sent to output.
 
 Usage:
 
