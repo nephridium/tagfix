@@ -2,6 +2,7 @@ var fs = require('fs');
 var cheerio = require('cheerio');
 var _ = require('lodash-node');
 var concat = require('concat-stream')
+var readlineSync = require('readline-sync');
 
 // var $input = cheerio.load(fs.readFileSync('2.html'));
 var tags = require('./tags');
@@ -36,6 +37,13 @@ var fix = function($in) {
         }
         console.error(text);
 
+        // allow user to override text
+        var inputText = readlineSync.question('');
+        if (inputText !== '') {
+          text = inputText;
+        }
+
+        // transform element into text node
         this.data = text;
         this.type = 'text';
       }
