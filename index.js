@@ -2,19 +2,31 @@ var fs = require('fs');
 var cheerio = require('cheerio');
 var _ = require('lodash-node');
 
-var $in = cheerio.load(fs.readFileSync('1.html'));
+var $in = cheerio.load(fs.readFileSync('2.html'));
 var x = $in('*');
 console.log($in.html());
 
 $in('*').map(function() {
-  // console.log(this);
+  // console.log(this;
   // console.log('===', this.type);
   if (this.type === 'tag') {
     if (this.name === 'this') {
       // console.log(this.parent);
       console.log('---', this.name);
-      var text = this.name;
       // console.log(this);
+
+      var text = this.name;
+      if (this.attribs !== null) {
+        text = text + ' ' + Object.keys(this.attribs).join(' ');
+      }
+      if (this.children !== null) {
+        text = text + ' ' + _.map(this.children, function(el) {
+          return el.data;
+        }).join(' ');
+      }
+      console.log(text);
+      // console.log(Object.keys(this.attribs));
+
 
       this.data = text;
       this.type = 'text';
