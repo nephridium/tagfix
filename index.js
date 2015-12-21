@@ -30,6 +30,10 @@ var fix = function($in) {
           text = text + ' ' + Object.keys(this.attribs).join(' ');
         }
         if (this.children !== null) {
+          if (this.children.length > 0) {
+            console.error('Encountered nested tag', this.children);
+            process.exit(1);
+          }
           // append children text nodes
           text = text + ' ' + _.map(this.children, function(el) {
             return el.data;
@@ -51,11 +55,11 @@ var fix = function($in) {
         console.error(context);
 
         // allow user to override text
-        var inputText = readlineSync.question('');
-        if (inputText !== '') {
-          text = inputText;
-          text = '‹' + text.trim() + '›';
-        }
+        // var inputText = readlineSync.question('');
+        // if (inputText !== '') {
+        //   text = inputText;
+        //   text = '‹' + text.trim() + '›';
+        // }
 
         // transform element into text node
         this.data = text;
