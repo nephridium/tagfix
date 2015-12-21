@@ -18,12 +18,12 @@ process.stdin.pipe(concat(function(data){
 }));
 
 var fix = function($in) {
-  // console.log($in.html());
+  console.error($in.html(), '\n');
 
   $in('*').map(function() {
     if (this.type === 'tag') {
       if (!isValidTag(this.name)) {
-        console.error('---', this.name);
+        console.error('---', this.name, '\n');
         var text = this.name;
         if (this.attribs !== null) {
           // append attributes
@@ -36,12 +36,15 @@ var fix = function($in) {
           }).join(' ');
         }
 
+        // add Guillemets
+        text = '‹' + text.trim() + '›';
+
         // show text with previous/following text
         var context = '';
         if ((this.prev) && (this.prev.data)) {
           context += this.prev.data;
         }
-        context += '[' + text + ']';
+        context += text;
         if ((this.next) && (this.next.data)) {
           context += this.next.data;
         }
@@ -51,6 +54,7 @@ var fix = function($in) {
         var inputText = readlineSync.question('');
         if (inputText !== '') {
           text = inputText;
+          text = '‹' + text.trim() + '›';
         }
 
         // transform element into text node
