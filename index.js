@@ -1,7 +1,7 @@
 var fs = require('fs');
 var cheerio = require('cheerio');
 var _ = require('lodash-node');
-var concat = require('concat-stream')
+var concat = require('concat-stream');
 var readlineSync = require('readline-sync');
 
 // var $input = cheerio.load(fs.readFileSync('2.html'));
@@ -10,12 +10,12 @@ var validTagList = Object.keys(tags.valid);
 
 var isValidTag = function(tag) {
   return validTagList.indexOf(tag.toLowerCase()) >= 0;
-}
+};
 
 // read from stdin and write to stdout
 process.stdin.pipe(concat(function(data){
   fix(cheerio.load(data.toString()));
-}))
+}));
 
 var fix = function($in) {
   // console.log($in.html());
@@ -59,6 +59,6 @@ var fix = function($in) {
       }
     }
     return this;
-  })
+  });
   console.log($in.html());
-}
+};

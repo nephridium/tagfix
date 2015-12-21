@@ -446,4 +446,4 @@ module.exports = {
       attributes: "globals"
     }
   }
-}
+};
